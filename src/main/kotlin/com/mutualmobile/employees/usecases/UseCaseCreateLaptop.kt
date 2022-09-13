@@ -1,6 +1,5 @@
 package com.mutualmobile.employees.usecases
 
-import com.mutualmobile.employees.models.Employee
 import com.mutualmobile.employees.models.Laptop
 import com.mutualmobile.employees.store.LaptopStore
 import java.util.*
@@ -22,7 +21,7 @@ class UseCaseCreateLaptop(private val laptopStore: LaptopStore):UseCaseTemplate(
 
         )
         println(laptop)
-        laptopStore.create(laptopId)
+        laptopStore.create(laptop)
     }
 }
 
