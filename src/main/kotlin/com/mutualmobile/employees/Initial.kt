@@ -4,6 +4,7 @@ import com.mutualmobile.employees.store.EmployeeStore
 import com.mutualmobile.employees.usecases.UseCaseCreateEmployee
 import com.mutualmobile.employees.usecases.UseCaseDeleteEmployee
 import com.mutualmobile.employees.usecases.UseCaseGetEmployees
+import com.mutualmobile.employees.usecases.UseCaseUpdateEmployeeStore
 import java.util.*
 
 val employeeStore = EmployeeStore()
@@ -52,7 +53,9 @@ fun processOption(optionThatUserChose: Int) {
     }
 
     MyConstants.UPDATE -> {
-
+val useCaseUpdateLaptop = UseCaseUpdateEmployeeStore(employeeStore)
+      useCaseUpdateLaptop.perform()
+      askUserAgain()
     }
 
     MyConstants.GETLIST -> {

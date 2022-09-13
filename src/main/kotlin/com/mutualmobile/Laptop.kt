@@ -1,10 +1,10 @@
 package com.mutualmobile
 
-
-
-import com.mutualmobile.employees.processOption
-import com.mutualmobile.employees.showOptions
 import com.mutualmobile.employees.store.LaptopStore
+import com.mutualmobile.employees.usecases.UseCaseCreateLaptop
+import com.mutualmobile.employees.usecases.UseCaseDeleteLaptop
+import com.mutualmobile.employees.usecases.UseCaseGetLaptop
+import com.mutualmobile.employees.usecases.UseCaseUpdateLaptop
 import java.util.*
 
 object MyConstants {
@@ -13,23 +13,23 @@ object MyConstants {
     const val UPDATE = 3
     const val GETLIST = 4
 }
-val laptopStore = LaptopStore()
-fun main(){
-    informLaptop()
-    askUserlaptop()
 
+val laptopStore = LaptopStore()
+fun main(
+) {
+    informLaptop()
+    askUserLaptop()
 }
 
-
-
-fun askUserlaptop() { showOptions()
+fun askUserLaptop() {
+    showOptions()
 
     val scannerInput = Scanner(System.`in`)
     val optionThatUserChose = scannerInput.nextInt()
     println("Use chose $optionThatUserChose")
-
-    processOption(optionThatUserChose)
+    processes(optionThatUserChose)
 }
+
 fun informLaptop() {
     println("Hello! Welcome to MutualMobile")
     Thread.sleep(1000)
@@ -37,34 +37,42 @@ fun informLaptop() {
     Thread.sleep(500)
 }
 
-fun UseCaseCreatelaptop(employeeStore: LaptopStore) {
+fun processes(optionThatUserChose: Int) {
+    when (optionThatUserChose) {
+        MyConstants.CREATE -> {
+            val useCaseCreateLaptop = UseCaseCreateLaptop(laptopStore)
+            useCaseCreateLaptop.perform()
+            askUserLaptop()
+        }
 
+        MyConstants.DELETE -> {
+            val useCaseDeleteLaptop = UseCaseDeleteLaptop(laptopStore)
+            useCaseDeleteLaptop.perform()
+            askUserLaptop()
+        }
+
+        MyConstants.GETLIST -> {
+            val useCaseGetLaptop = UseCaseGetLaptop(laptopStore)
+            useCaseGetLaptop.perform()
+            askUserLaptop()
+        }
+
+        MyConstants.UPDATE -> {
+            val useCaseUpdateLaptop = UseCaseUpdateLaptop(laptopStore)
+            useCaseUpdateLaptop.perform()
+            askUserLaptop()
+        }
+
+    }
 }
 
-fun processs(optionThatUserChose: Int) {
-    when (optionThatUserChose) {
-        MyConstants.CREATE -> {
-            val useCaseCreateLaptop = UseCaseCreatelaptop(laptopStore)
-            useCaseCreateLaptop
-            askUserlaptop()
-        }}}
 
-
-fun process(optionThatUserChose: Int) {
-    when (optionThatUserChose) {
-        MyConstants.CREATE -> {
-            val useCaseCreateLaptop = UseCaseCreatelaptop(laptopStore)
-            useCaseCreateLaptop
-            com.mutualmobile.employees.askUserAgain()
-        }
-    }
-    fun showOptions() {
-        println("${MyConstants.CREATE}. Create Employee")
-        Thread.sleep(500)
-        println("${MyConstants.DELETE}. Delete Employee")
-        Thread.sleep(500)
-        println("${MyConstants.UPDATE}. Update Employee")
-        Thread.sleep(500)
-        println("${MyConstants.GETLIST}. Get List of Laptop")
-    }
+fun showOptions() {
+    println("${MyConstants.CREATE}. Create Laptop")
+    Thread.sleep(500)
+    println("${MyConstants.DELETE}. Delete laptop")
+    Thread.sleep(500)
+    println("${MyConstants.UPDATE}. Update laptop")
+    Thread.sleep(500)
+    println("${MyConstants.GETLIST}. Get List of Laptop")
 }

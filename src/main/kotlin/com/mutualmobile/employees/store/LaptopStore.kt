@@ -1,27 +1,37 @@
 package com.mutualmobile.employees.store
 
-import com.mutualmobile.employees.models.Employee
+
 import com.mutualmobile.employees.models.Laptop
 
+
 class LaptopStore : Store<Laptop>() {
-  override fun create(data: Laptop) {
-      Laptop.add(data)
-  }
+    private val laptop = mutableListOf<Laptop>()
+    override fun create(data: Laptop) {
+        laptop.add(data)                                          //ADD DATA
+    }
 
-  override fun getData(): List<Laptop> {
-    TODO("Not yet implemented")
-  }
+    override fun getData(): MutableList<Laptop> {
+        return laptop
+    }
 
-  override fun update(data: Laptop) {
-    TODO("Not yet implemented")
-  }
+    override fun update(data: Laptop) {
+        var newLaptop: Laptop? = laptop.firstOrNull { laptop: Laptop ->
 
-  override fun delete(data: Laptop) {
-    TODO("Not yet implemented")
-  }
+            laptop.Laptopid == data.Laptopid
+        }
+        newLaptop?.let {
+            newLaptop.name = data.name
+            newLaptop.Laptopid = data.Laptopid
+        }
+    }
 
-}
 
-private fun Laptop.Companion.add(data: Laptop) {
+    override fun delete(data: Laptop) {
+        laptop.remove(data)                         //DELETE DATA
+    }
 
+
+    private fun Laptop.Companion.add(data: Laptop) {
+
+    }
 }

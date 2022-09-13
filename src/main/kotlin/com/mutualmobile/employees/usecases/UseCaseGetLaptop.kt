@@ -2,10 +2,10 @@ package com.mutualmobile.employees.usecases
 
 import com.mutualmobile.employees.store.LaptopStore
 
-class UseCaseGetlaptop(private val laptopStore: LaptopStore) : UseCaseTemplate() {
+class UseCaseGetLaptop(private val LaptopStore: LaptopStore) : UseCaseTemplate() {
     override fun perform() {
-       laptopStore.getData().forEach {
+        LaptopStore.getData().forEach {
             println(it)
         }
-
-    }}
+    }
+}
